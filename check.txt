@@ -1,0 +1,98 @@
+http://localhost:3000/BasicRevise/RegUser
+{  "UserName": "Check",
+  "UserID": "check123",
+   "UserEmail": "check123@gmail.com",
+    "Role": "Customer",
+    "Password": "Check123",
+    "Retype_Password": "Check123"
+}
+
+{
+   "UserName": "Admin",
+   "UserID": "AdminDGT001",
+   "UserEmail": "admin123@gmail.com",
+   "Password": "Admin123",
+   "Retype_Password": "Admin123"
+}
+
+ProductRoutes.js 
+
+console.log("upload.array:", typeof ProdImageUpload.array);
+console.log("ProductValidationRules is array:", Array.isArray(ProductValidationRules));
+console.log("Validate:", typeof Validate);
+console.log("ProductsController:", typeof ProductsController);
+
+chatgpt
+ok now I need to write code to buy products with Project Object ID and quantity under userName and UserEmail.., I need to pass the Product objectID.., and based on JWt verifiation it should store the product details under the particular buying User
+
+
+24/01/2026
+
+{
+  "Message": "User Logined Successfully",
+  "User": "Admin",
+  "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJBZG1pbkRHVDAwMSIsIlJvbGUiOiJBZG1pbiIsImlhdCI6MTc2OTIyOTIyNiwiZXhwIjoxNzY5MjM2NDI2fQ.5ZZipsA0rb7Pe6AehMwIiiBOSBqOpvg6oECeVXGM6b0"
+}
+
+{
+  "Message": "User Logined Successfully",
+  "User": "Customer",
+  "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJDdXN0REdUMDAxIiwiUm9sZSI6IkN1c3RvbWVyIiwiaWF0IjoxNzY5MjI4MTQyLCJleHAiOjE3NjkyMzUzNDJ9.UcKP2UKRmmlstUUaLMeHBYuElQoq0A0EfYPJFXuXBCY"
+}
+
+27/01/2026
+
+{
+  "Message": "User Logined Successfully",
+  "User": "Customer",
+  "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJDdXN0REdUMDAxIiwiUm9sZSI6IkN1c3RvbWVyIiwiaWF0IjoxNzY5NDk3NTU2LCJleHAiOjE3Njk1MDQ3NTZ9.clQNZXtw1X8UFWfWtNawUIYOGDnozCQ5sMHQNuOGGlA"
+}
+
+{
+  "Message": "User Logined Successfully",
+  "User": "Admin",
+  "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJBZG1pbkRHVDAwMSIsIlJvbGUiOiJBZG1pbiIsImlhdCI6MTc2OTUwMzQ1NiwiZXhwIjoxNzY5NTEwNjU2fQ.YXe44pCujLBnoI2SP8lyRN4PiZFHoE-oRKjj_qkK5s4"
+}
+
+{
+  "UserName": "Peter John",
+  "UserID": "peter123",
+  "UserEmail": "peter.john@example.com",
+  "Role": "Customer",
+  "Password": "securePassword123",
+    "Retype_Password": "securePassword123"
+
+}
+{
+  "UserName": "Admin User",
+  "UserID": "admin001",
+  "UserEmail": "admin@example.com",
+  "Role": "Admin",
+  "Password": "adminPass456",
+    "Retype_Password": "adminPass456"
+
+}
+{
+  "Message": "User Logined Successfully",
+  "User": "Admin User",
+  "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJhZG1pbjAwMSIsIlJvbGUiOiJBZG1pbiIsImlhdCI6MTc2OTUwNjU0OCwiZXhwIjoxNzY5NTEzNzQ4fQ.5VK6qavCU--8HpSW8pc3OZevejHf1R1a0YNsuR8BTJQ"
+}
+{
+  "Message": "User Logined Successfully",
+  "User": "Admin User",
+  "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJhZG1pbjAwMSIsIlJvbGUiOiJBZG1pbiIsImlhdCI6MTc2OTUwNjQ4NywiZXhwIjoxNzY5NTEzNjg3fQ.TEQyoiyGITP_7VN7_h22b6TS3PYGODAJ1T4IGTIy8UY"
+}
+
+{
+  "UserName": "Samuel",
+  "UserID": "CustDGT101",
+  "UserEmail": "sam@example.com",
+  "Role": "Customer",
+  "Password": "Samuel456",
+    "Retype_Password": "Samuel456"
+}
+{
+  "Message": "User Logined Successfully",
+  "User": "Samuel",
+  "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJDdXN0REdUMTAxIiwiUm9sZSI6IkN1c3RvbWVyIiwiaWF0IjoxNzY5NTA2ODc1LCJleHAiOjE3Njk1MTQwNzV9.4qS19nBkrKkG0K-gg7C4k_ZRGLrsSBQx87jxOckzWec"
+}
