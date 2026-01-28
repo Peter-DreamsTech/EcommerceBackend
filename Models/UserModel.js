@@ -9,4 +9,8 @@ const UserSchema = mongoose.Schema({
     // Retype_Password: {type: String}
 },{timestamps:true})
 
+// Indexex
+UserSchema.index({UserID:1});
+UserSchema.index({UserEmail: 1});
+
 module.exports = mongoose.model("UserDetail" , UserSchema);

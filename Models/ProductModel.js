@@ -8,4 +8,8 @@ const ProductSchema = new mongoose.Schema({
     Offer: {type: Number , default: 0}
 },  {timestamps: true} );
 
+// index
+ProductSchema.index({ProductName:1});
+ProductSchema.index({ProductID: 1});
+
 module.exports = mongoose.model("Product" , ProductSchema);

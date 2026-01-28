@@ -7,7 +7,7 @@ const VerifyToken = (req,res,next) => {
         const token = AuthHeaders.split(" ")[1];
         const verification = jwt.verify(token , process.env.JWT_SECRETS);
         req.User = verification;
-        console.log( req.User);
+        // console.log( req.User);
         next();
     }
     catch(err){

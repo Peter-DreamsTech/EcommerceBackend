@@ -1,6 +1,7 @@
 const OrderModelSchema = require("../Models/OrderModel");
 const UserModelSchema = require("../Models/UserModel");
 const ProductModelSchema = require("../Models/ProductModel");
+const { deleteModel } = require("mongoose");
 
 exports.OrderController = async(req , res) => {
     
@@ -88,14 +89,37 @@ exports.AllOrdersView = async(req,res) => {
     }
 }
 
-exports.OrderDeleteController= async(req,res) => {
+exports.OrderCancelController= async(req,res) => {
     try{
-        
+        const UserID = req.User.UserID;
+        console.log(UserID);
+
+        const UserExist = await UserModelSchema.findOne({UserID: UserID});
+        const UserMail = UserExist.UserEmail;
+
+        const OrderedProduct = req.params.id
+        const ExistOfOrderedProduct = await OrderModelSchema.findById(OrderedProduct);
+
+        if(UserMail === ExistOfOrderedProduct.UserEmail){
+            await OrderModelSchema.findByIdAndDelete(OrderedProduct);
+
+            res.status(200).json({
+                Message: "Order Deleted",
+                CanceledOrder: ExistOfOrderedProduct
+            });
+        }
+        else{
+            res.status(400).send("The User Still not ordered..");
+        }
+
+        // res.status(200).json({
+        //     Message: ExistOfOrderedProduct
+        // })
     }
     catch(err){
         res.status(400).json({
             Message: "Order Delete Controller Error",
             Error: err.message
-        })
+        });
     }
 }

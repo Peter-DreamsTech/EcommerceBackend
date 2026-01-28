@@ -14,4 +14,9 @@ const UserOrders = mongoose.Schema({
     ]
 },{timestamps: true})
 
+// Indexex
+
+UserOrders.index({UserEmail: 1});
+UserOrders.index({"Product.ProductID": 1});
+
 module.exports = mongoose.model("OrderDetail" , UserOrders);
