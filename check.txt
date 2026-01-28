@@ -96,3 +96,10 @@ ok now I need to write code to buy products with Project Object ID and quantity 
   "User": "Samuel",
   "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJDdXN0REdUMTAxIiwiUm9sZSI6IkN1c3RvbWVyIiwiaWF0IjoxNzY5NTA2ODc1LCJleHAiOjE3Njk1MTQwNzV9.4qS19nBkrKkG0K-gg7C4k_ZRGLrsSBQx87jxOckzWec"
 }
+
+.env
+
+PORT=3000
+Mongo_URL=mongodb://localhost:27017/BasicRevise
+SALT_ROUNDS=10
+JWT_SECRETS=KeyOfSecret
