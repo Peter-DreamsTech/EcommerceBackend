@@ -1,7 +1,7 @@
 const OrderModelSchema = require("../Models/OrderModel");
 const UserModelSchema = require("../Models/UserModel");
 const ProductModelSchema = require("../Models/ProductModel");
-const { deleteModel } = require("mongoose");
+// const { deleteModel } = require("mongoose");
 
 exports.OrderController = async(req , res) => {
     
@@ -16,15 +16,18 @@ exports.OrderController = async(req , res) => {
 
         const {Product} = req.body;
          if(!Product || Product.length === 0){
-            res.status(400).send("User didn't select any Product");
+            return res.status(400).send("User didn't select any Product");
          }
 
          const ProductIDs = Product.map(P => P.ProductID);
          const ExistingProducts = await ProductModelSchema.find({
             _id: {$in: ProductIDs}
          })
-         if(!ExistingProducts){
-            res.status(400).send("The Product Existing Error..,");
+        //  if(!ExistingProducts){
+        //     return res.status(400).send("The Product Existing Error..,");
+        //  }
+         if (ExistingProducts.length !== ProductIDs.length) {
+            return res.status(404).send("One or more products not found");
          }
 
          
@@ -34,14 +37,14 @@ exports.OrderController = async(req , res) => {
             Product: Product
          });
 
-         res.status(200).json({
+         res.status(201).json({
             Message: "The Product Saved Successfully",
             Orders: Order
          });
     }
 
     catch(err){
-        res.status(401).json({
+        res.status(500).json({
             Message: "Error in Order Controller",
             Error: err.message
         })
@@ -82,7 +85,7 @@ exports.AllOrdersView = async(req,res) => {
         })
     }
     catch(err){
-        res.status(400).json({
+        res.status(500).json({
             Message: "Error in AllOrderView",
             Error: err.message
         })
@@ -104,12 +107,12 @@ exports.OrderCancelController= async(req,res) => {
             await OrderModelSchema.findByIdAndDelete(OrderedProduct);
 
             res.status(200).json({
-                Message: "Order Deleted",
+                Message: "Order Canceled",
                 CanceledOrder: ExistOfOrderedProduct
             });
         }
         else{
-            res.status(400).send("The User Still not ordered..");
+            res.status(403).send("The User not allowed to cancel the order..");
         }
 
         // res.status(200).json({
@@ -117,7 +120,7 @@ exports.OrderCancelController= async(req,res) => {
         // })
     }
     catch(err){
-        res.status(400).json({
+        res.status(500).json({
             Message: "Order Delete Controller Error",
             Error: err.message
         });

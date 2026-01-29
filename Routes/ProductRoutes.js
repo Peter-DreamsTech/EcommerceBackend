@@ -12,7 +12,7 @@ const IsAdmin = require("../Middleware/IsAdmin");
 
 router.post("/CreateProduct" , VerifyToken , IsAdmin , ProdImageUpload.array("ProductImage" , 5) , ProductValidationRules , Validate, ProductsController);
 router.patch("/ProductUpdate/:id" , VerifyToken, IsAdmin, ProdImageUpload.array("ProductImage" , 5) , ProductPatchValidationRules , Validate , ProductUpdation);
-router.delete("/ProductDeletion/:id" , VerifyToken, IsAdmin ,ProdImageUpload.array("ProductImage" , 5)  ,  ProductDeletion);
-// router.get("/AdminOrderCheck" , VerifyToken, IsAdmin);
+router.delete("/ProductDeletion/:id" , VerifyToken, IsAdmin ,  ProductDeletion);
+// router.get("/AdminOrderCheck" , VerifyToken, IsAdmin); /ProdImageUpload.array("ProductImage" , 5)  ,
 
 module.exports = router;

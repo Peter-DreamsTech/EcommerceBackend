@@ -6,7 +6,7 @@ exports.SeachProductsController = async(req,res) => {
             // console.log(req.query);
         const Keyword = req.query.keyword;
         if(!Keyword){
-            return res.status(404).send("Keyword must needed..");
+            return res.status(400).send("Keyword must needed..");
         }
 
         let Filter = {};
@@ -41,7 +41,7 @@ exports.SeachProductsController = async(req,res) => {
         })
     }
     catch(err){
-        res.status(400).json({
+        res.status(500).json({
             Message: "Error in Search Controller",
             Error: err.message
         })

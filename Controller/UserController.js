@@ -26,7 +26,7 @@ exports.RegUser = async(req,res) => {
     })
    }
    catch(err){
-    res.status(401).json({
+    res.status(500).json({
       Error: "Error in UserController",
       Message: err.message
     });
@@ -40,12 +40,12 @@ exports.LoginUser = async(req,res) => {
 
       const User = await UserModelSchema.findOne({UserEmail})
       if(!User){
-         return res.status(404).send("User not found..");
+         return res.status(401).send("User not found..");
       }
 
       const isMatch = await bcrypt.compare(Password , User.Password);
       if(!isMatch){
-         res.status(400).send("Entered Password is Wrong..");
+         res.status(401).send("Entered Password is Wrong..");
       }
 
       const token = jwt.sign(
@@ -54,14 +54,14 @@ exports.LoginUser = async(req,res) => {
          {expiresIn: "2h"}
       )
 
-      res.status(201).json({
+      res.status(200).json({
          Message: "User Logined Successfully",
          User: User.UserName,
          Token: token
       })
    }
    catch(err){
-      res.status(400).json({
+      res.status(500).json({
          Message: "Error in LoginUser Controller",
          Error: err.message
       })
@@ -84,7 +84,7 @@ exports.UpdateUser = async(req , res) => {
       })
    }
    catch(err){
-      res.status(401).json({
+      res.status(500).json({
          Error: "Error in UserController",
          Message: err.message
       });
@@ -97,13 +97,17 @@ exports.DeleteUser = async(req , res) => {
 
       const DeletedUser = await UserModelSchema.findByIdAndDelete(DeleteUserID);
 
+      if (!DeletedUser) {
+         return res.status(404).send("User not found");
+      }
+
       res.status(200).json({
          Message: "The User is Deleted",
          User: DeletedUser
       });
 
    }catch(err){
-      res.status(400).json({
+      res.status(500).json({
          message: "Error in DeleteUser Controlling",
          Error:err.message
       })
