@@ -1,12 +1,14 @@
 const OrderModelSchema = require("../Models/OrderModel");
 const UserModelSchema = require("../Models/UserModel");
 const ProductModelSchema = require("../Models/ProductModel");
+const Agenda = require("../Config/Agenda");
 // const { deleteModel } = require("mongoose");
 
 exports.OrderController = async(req , res) => {
     
     try{
         const UserID = req.User.UserID;
+        const {email , subject ,text} = req.body;
 
         const User = await UserModelSchema.findOne({UserID: UserID});
 
@@ -15,6 +17,7 @@ exports.OrderController = async(req , res) => {
         }
 
         const {Product} = req.body;
+        console.log(Product);
          if(!Product || Product.length === 0){
             return res.status(400).send("User didn't select any Product");
          }
@@ -37,10 +40,19 @@ exports.OrderController = async(req , res) => {
             Product: Product
          });
 
+         await Agenda.schedule("in 180 minutes" , "send-email", {
+            to: User.UserEmail,
+            subject: "Order Confirmation",
+            text: JSON.stringify(Order, null, 2),
+            Message: "Your Product is out for Delivery"
+         });
+         console.log("The Mail has scheduled for Order Confirmation");
+
          res.status(201).json({
             Message: "The Product Saved Successfully",
             Orders: Order
          });
+
     }
 
     catch(err){
@@ -94,6 +106,7 @@ exports.AllOrdersView = async(req,res) => {
 
 exports.OrderCancelController= async(req,res) => {
     try{
+        console.log(req.User);
         const UserID = req.User.UserID;
         console.log(UserID);
 
@@ -105,6 +118,15 @@ exports.OrderCancelController= async(req,res) => {
 
         if(UserMail === ExistOfOrderedProduct.UserEmail){
             await OrderModelSchema.findByIdAndDelete(OrderedProduct);
+
+            await Agenda.schedule("in 60 minutes" , "send-email", {
+            to: UserMail,
+            subject: "Cancel Order Confirmation",
+            text: JSON.stringify(ExistOfOrderedProduct, null, 2)
+
+         });
+         console.log("The Mail has scheduled for Order Cancelation");
+
 
             res.status(200).json({
                 Message: "Order Canceled",

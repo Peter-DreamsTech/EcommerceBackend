@@ -2,6 +2,9 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 
+const Agenda = require("./Config/Agenda");
+require("./Jobs/MailJobs");
+
 const DB = require("./Config/db");
 
 app.use(express.json());
@@ -18,6 +21,14 @@ app.use("/BasicRevise" , Product);
 app.use("/BasicRevise" , Order);
 app.use("/BasicRevise" , Search);
 
-app.listen(process.env.PORT , ()=>{
-    console.log("server is running in Port http://localhost:"+process.env.PORT)
-});
+const StartServer = async() => {
+
+    await Agenda.start();
+    console.log("Agenda Mail Started");
+
+    app.listen(process.env.PORT , ()=>{
+        console.log("server is running in Port http://localhost:"+process.env.PORT)
+    });
+}
+
+StartServer();
