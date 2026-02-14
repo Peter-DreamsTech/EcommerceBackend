@@ -141,3 +141,16 @@ JWT_SECRETS=KeyOfSecret
 
 email: sysj mlmi rprx sgjq
 email2: ilta lrmn dttx hwyq
+
+14/02/2026
+
+{
+    "UserEmail": "admin@example.com",
+  "Password": "adminPass456"
+}
+
+{
+    "Message": "User Logined Successfully",
+    "User": "Admin User",
+    "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySUQiOiJhZG1pbjAwMSIsIlJvbGUiOiJBZG1pbiIsImlhdCI6MTc3MTA1NDUzMiwiZXhwIjoxNzcxMDYxNzMyfQ._rTHZqpriOvN5er3kUDQpXx7e1cN0oJBizymCo9yVRM"
+}

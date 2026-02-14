@@ -6,6 +6,7 @@ const Agenda = require("./Config/Agenda");
 require("./Jobs/MailJobs");
 
 const DB = require("./Config/db");
+require("./Config/Redis");
 
 app.use(express.json());
 

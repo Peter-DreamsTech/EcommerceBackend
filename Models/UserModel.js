@@ -11,6 +11,6 @@ const UserSchema = mongoose.Schema({
 
 // Indexex
 UserSchema.index({UserID:1});
-UserSchema.index({UserEmail: 1});
+UserSchema.index({UserEmail: 1});     
 
-module.exports = mongoose.model("UserDetail" , UserSchema);
+module.exports = mongoose.model("UserDetail" , UserSchema);    

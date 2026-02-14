@@ -1,17 +1,18 @@
 const OrderModelSchema = require("../Models/OrderModel");
 const UserModelSchema = require("../Models/UserModel");
 const ProductModelSchema = require("../Models/ProductModel");
-const Agenda = require("../Config/Agenda");
+const Agenda = require("../Config/Agenda"); 
+const RedisClient = require("../Config/Redis");
 // const { deleteModel } = require("mongoose");
-
-exports.OrderController = async(req , res) => {
-    
-    try{
+   
+exports.OrderController = async(req , res) => {    
+             
+    try{            
         const UserID = req.User.UserID;
         const {email , subject ,text} = req.body;
-
+                          
         const User = await UserModelSchema.findOne({UserID: UserID});
-
+  
         if( !User){
             return res.status(404).send("User Not Found");
         }
@@ -66,6 +67,19 @@ exports.OrderController = async(req , res) => {
 
 exports.AllOrdersView = async(req,res) => {
     try{
+
+        const CacheKey = "Redis_AllOrderView";
+        const RedisCacheData = await RedisClient.get(CacheKey);
+
+        if(RedisCacheData){
+            console.log("From Redis - All Orders View");
+            return res.status(200).json({
+                Message: "All Orders View From Redis",
+                RedisData: JSON.parse(RedisCacheData)
+            });
+        }
+
+
         const ViewOrders = await OrderModelSchema.aggregate([
             { $unwind: "$Product" }, 
             {
@@ -90,10 +104,23 @@ exports.AllOrdersView = async(req,res) => {
                     Offer: "$AllOrders.Offer"
                 }
              }
-        ])
+        ]);
+
+        const AllOrdersData = {
+            Orders: ViewOrders
+        }
+        
+        await RedisClient.setEx(
+            CacheKey,
+            120,
+            JSON.stringify(AllOrdersData)
+        )
+           
+        console.log("All Orders View From MongoDB");
+
         res.status(200).json({
             Message: "All Orders Viewed",
-            Orders: ViewOrders
+            Orders: AllOrdersData
         })
     }
     catch(err){
